@@ -81,13 +81,6 @@ function PostCard({ post }) {
             <span className="post-card__timestamp">{formatDate(post.createdAt)}</span>
           </div>
         </div>
-        <button
-          className={`post-card__bookmark ${bookmarked ? 'active' : ''}`}
-          onClick={handleBookmark}
-          aria-label="ブックマーク"
-        >
-          {bookmarked ? '★' : '☆'}
-        </button>
       </div>
 
       <div className="post-card__content">

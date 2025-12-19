@@ -44,8 +44,7 @@ function Explore() {
   return (
     <div className="explore">
       <div className="explore__header">
-        <h1 className="explore__title">Explore</h1>
-        <p className="explore__subtitle">人気のリポジトリを発見</p>
+        <h1 className="explore__title">検索</h1>
       </div>
 
       <div className="explore__filters">

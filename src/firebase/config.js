@@ -52,15 +52,24 @@ let app;
 let db;
 let auth;
 
-try {
-  app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-  auth = getAuth(app);
-} catch (error) {
-  console.error('Firebase初期化エラー:', error);
-  console.error('環境変数が正しく設定されているか確認してください。');
-  // エラーをスローせず、nullを設定してアプリを起動できるようにする
-  // ただし、Firebase機能は使用できません
+// 環境変数がすべて設定されている場合のみ初期化
+const hasAllEnvVars = Object.values(requiredEnvVars).every(value => value && value.trim() !== '');
+
+if (hasAllEnvVars) {
+  try {
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    auth = getAuth(app);
+  } catch (error) {
+    console.error('Firebase初期化エラー:', error);
+    console.error('環境変数が正しく設定されているか確認してください。');
+    app = null;
+    db = null;
+    auth = null;
+  }
+} else {
+  console.warn('Firebase環境変数が不完全なため、Firebase機能は使用できません。');
+  console.warn('Vercelで環境変数を設定して再デプロイしてください。');
   app = null;
   db = null;
   auth = null;

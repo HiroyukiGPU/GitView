@@ -95,8 +95,6 @@ function RepoDetail() {
       </div>
 
       <div className="repo-detail__feed">
-        <h2 className="repo-detail__feed-title">このリポジトリについて</h2>
-        
         {user && (
           <RepoPostForm
             repoOwner={owner}

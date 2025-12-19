@@ -13,7 +13,16 @@ function LoginButton() {
     try {
       await signInWithGoogle();
     } catch (err) {
-      setError('Googleログインに失敗しました');
+      // エラーメッセージが既に設定されている場合はそのまま使用
+      if (err.message && err.message.includes('既に')) {
+        setError(err.message);
+      } else if (err.code === 'auth/popup-blocked') {
+        setError('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。');
+      } else if (err.code === 'auth/popup-closed-by-user') {
+        setError('ログインがキャンセルされました。');
+      } else {
+        setError(err.message || 'Googleログインに失敗しました');
+      }
       console.error('Login error:', err);
     } finally {
       setIsLoading(false);
@@ -26,7 +35,16 @@ function LoginButton() {
     try {
       await signInWithGitHub();
     } catch (err) {
-      setError('GitHubログインに失敗しました');
+      // エラーメッセージが既に設定されている場合はそのまま使用
+      if (err.message && err.message.includes('既に')) {
+        setError(err.message);
+      } else if (err.code === 'auth/popup-blocked') {
+        setError('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。');
+      } else if (err.code === 'auth/popup-closed-by-user') {
+        setError('ログインがキャンセルされました。');
+      } else {
+        setError(err.message || 'GitHubログインに失敗しました');
+      }
       console.error('Login error:', err);
     } finally {
       setIsLoading(false);

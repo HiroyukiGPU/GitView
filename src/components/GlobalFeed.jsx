@@ -76,6 +76,9 @@ function GlobalFeed() {
 
   return (
     <div className="global-feed">
+      <div className="global-feed__header">
+        <h1 className="global-feed__title">ホーム</h1>
+      </div>
       <PostForm onPostCreated={handlePostCreated} />
 
       {error && <div className="global-feed__error">{error}</div>}

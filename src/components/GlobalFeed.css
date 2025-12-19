@@ -1,7 +1,24 @@
 .global-feed {
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 16px;
+}
+
+.global-feed__header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eff3f4;
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  z-index: 10;
+}
+
+.global-feed__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f1419;
+  margin: 0;
 }
 
 .global-feed__error {

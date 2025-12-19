@@ -42,11 +42,11 @@ export function extractGitHubUrls(text) {
 
 // Trending Reposを取得（GitHub APIの制限により、実際のTrendingは取得できないため、
 // 代わりに最近のStarが多いリポジトリを取得）
-export async function fetchTrendingRepos(language = null) {
+export async function fetchTrendingRepos(language = null, perPage = 20) {
   try {
-    let url = 'https://api.github.com/search/repositories?q=stars:>1000&sort=stars&order=desc&per_page=20';
+    let url = `https://api.github.com/search/repositories?q=stars:>1000&sort=stars&order=desc&per_page=${perPage}`;
     if (language) {
-      url = `https://api.github.com/search/repositories?q=language:${language}+stars:>1000&sort=stars&order=desc&per_page=20`;
+      url = `https://api.github.com/search/repositories?q=language:${language}+stars:>1000&sort=stars&order=desc&per_page=${perPage}`;
     }
 
     const response = await fetch(url);

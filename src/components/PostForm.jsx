@@ -44,30 +44,49 @@ function PostForm({ onPostCreated }) {
   return (
     <form className="post-form" onSubmit={handleSubmit}>
       <div className="post-form__header">
-        <h2 className="post-form__title">投稿する</h2>
+        <h2 className="post-form__title">ホーム</h2>
       </div>
 
       <div className="post-form__body">
-        <textarea
-          className="post-form__textarea"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="OSSについて思ったこと、見つけたリポジトリのURLを共有..."
-          rows={4}
-          maxLength={MAX_LENGTH}
-          disabled={isSubmitting}
-        />
-        <div className="post-form__footer">
-          <span className="post-form__counter">
-            {text.length} / {MAX_LENGTH}
-          </span>
-          <button
-            type="submit"
-            className="post-form__submit"
-            disabled={isSubmitting || !text.trim()}
-          >
-            {isSubmitting ? '投稿中...' : '投稿'}
-          </button>
+        <div className="post-form__content">
+          {user?.photoURL ? (
+            <img
+              src={user.photoURL}
+              alt={user.displayName || user.email}
+              className="post-form__avatar"
+            />
+          ) : (
+            <div className="post-form__avatar">
+              {user?.displayName?.substring(0, 2).toUpperCase() || user?.email?.substring(0, 2).toUpperCase() || 'AN'}
+            </div>
+          )}
+          <div className="post-form__input-wrapper">
+            <textarea
+              className="post-form__textarea"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="いまどうしてる？"
+              rows={3}
+              maxLength={MAX_LENGTH}
+              disabled={isSubmitting}
+            />
+            <div className="post-form__footer">
+              <span className="post-form__counter">
+                {text.length > MAX_LENGTH * 0.9 && (
+                  <span className={text.length >= MAX_LENGTH ? 'post-form__counter--warning' : ''}>
+                    {MAX_LENGTH - text.length}
+                  </span>
+                )}
+              </span>
+              <button
+                type="submit"
+                className="post-form__submit"
+                disabled={isSubmitting || !text.trim()}
+              >
+                {isSubmitting ? '投稿中...' : '投稿'}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

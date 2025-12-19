@@ -42,26 +42,45 @@ function RepoPostForm({ repoOwner, repoName, onPostCreated }) {
   return (
     <form className="repo-post-form" onSubmit={handleSubmit}>
       <div className="repo-post-form__body">
-        <textarea
-          className="repo-post-form__textarea"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="このリポジトリについて思ったことを共有..."
-          rows={3}
-          maxLength={MAX_LENGTH}
-          disabled={isSubmitting}
-        />
-        <div className="repo-post-form__footer">
-          <span className="repo-post-form__counter">
-            {text.length} / {MAX_LENGTH}
-          </span>
-          <button
-            type="submit"
-            className="repo-post-form__submit"
-            disabled={isSubmitting || !text.trim()}
-          >
-            {isSubmitting ? '投稿中...' : '投稿'}
-          </button>
+        <div className="repo-post-form__content">
+          {user?.photoURL ? (
+            <img
+              src={user.photoURL}
+              alt={user.displayName || user.email}
+              className="repo-post-form__avatar"
+            />
+          ) : (
+            <div className="repo-post-form__avatar">
+              {user?.displayName?.substring(0, 2).toUpperCase() || user?.email?.substring(0, 2).toUpperCase() || 'AN'}
+            </div>
+          )}
+          <div className="repo-post-form__input-wrapper">
+            <textarea
+              className="repo-post-form__textarea"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="いまどうしてる？"
+              rows={3}
+              maxLength={MAX_LENGTH}
+              disabled={isSubmitting}
+            />
+            <div className="repo-post-form__footer">
+              <span className="repo-post-form__counter">
+                {text.length > MAX_LENGTH * 0.9 && (
+                  <span className={text.length >= MAX_LENGTH ? 'repo-post-form__counter--warning' : ''}>
+                    {MAX_LENGTH - text.length}
+                  </span>
+                )}
+              </span>
+              <button
+                type="submit"
+                className="repo-post-form__submit"
+                disabled={isSubmitting || !text.trim()}
+              >
+                {isSubmitting ? '投稿中...' : '投稿'}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

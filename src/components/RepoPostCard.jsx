@@ -219,27 +219,33 @@ function RepoPostCard({ post, onUpdate }) {
 
       <div className="repo-post-card__footer">
         <button
-          className={`repo-post-card__action ${isLiked ? 'active' : ''}`}
-          onClick={handleLike}
-          disabled={!user || isSubmitting}
-        >
-          <span className="repo-post-card__action-icon">❤️</span>
-          <span className="repo-post-card__action-count">{likesCount}</span>
-        </button>
-        <button
-          className="repo-post-card__action"
+          className="repo-post-card__action repo-post-card__action--reply"
           onClick={() => setShowReplyForm(!showReplyForm)}
           disabled={!user || isSubmitting}
         >
-          <span className="repo-post-card__action-icon">💬</span>
+          <svg className="repo-post-card__action-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.23l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.09 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"/>
+          </svg>
           <span className="repo-post-card__action-count">{post.repliesCount || 0}</span>
+        </button>
+        <button
+          className={`repo-post-card__action repo-post-card__action--like ${isLiked ? 'active' : ''}`}
+          onClick={handleLike}
+          disabled={!user || isSubmitting}
+        >
+          <svg className="repo-post-card__action-icon" viewBox="0 0 24 24" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span className="repo-post-card__action-count">{likesCount}</span>
         </button>
         {canDM && (
           <button
-            className="repo-post-card__action"
+            className="repo-post-card__action repo-post-card__action--dm"
             onClick={handleDM}
           >
-            <span className="repo-post-card__action-icon">✉️</span>
+            <svg className="repo-post-card__action-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.464l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.036z"/>
+            </svg>
             <span>DM</span>
           </button>
         )}
