@@ -80,6 +80,17 @@
   word-break: break-word;
 }
 
+.repo-card__translating {
+  opacity: 0.7;
+}
+
+.repo-card__translating-indicator {
+  font-size: 11px;
+  color: #999;
+  font-style: italic;
+  margin-left: 4px;
+}
+
 .repo-card__footer {
   display: flex;
   justify-content: space-between;

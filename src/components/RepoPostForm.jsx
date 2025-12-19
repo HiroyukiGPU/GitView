@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { createPost } from '../utils/posts';
+import { createRepoPost } from '../utils/repoPosts';
 import { useAuth } from '../contexts/AuthContext';
-import { getOrCreateUUID } from '../utils/uuid';
-import './PostForm.css';
+import './RepoPostForm.css';
 
-function PostForm({ onPostCreated }) {
+function RepoPostForm({ repoOwner, repoName, onPostCreated }) {
   const { user } = useAuth();
   const [text, setText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,9 +26,8 @@ function PostForm({ onPostCreated }) {
 
     setIsSubmitting(true);
     try {
-      // 認証ユーザーの場合はユーザーID、そうでない場合はUUIDを使用
-      const userId = user ? user.uid : getOrCreateUUID();
-      await createPost(text, userId, user);
+      const userId = user ? user.uid : 'anonymous';
+      await createRepoPost(text, repoOwner, repoName, userId, user);
       setText('');
       if (onPostCreated) {
         onPostCreated();
@@ -42,28 +40,24 @@ function PostForm({ onPostCreated }) {
   };
 
   return (
-    <form className="post-form" onSubmit={handleSubmit}>
-      <div className="post-form__header">
-        <h2 className="post-form__title">投稿する</h2>
-      </div>
-
-      <div className="post-form__body">
+    <form className="repo-post-form" onSubmit={handleSubmit}>
+      <div className="repo-post-form__body">
         <textarea
-          className="post-form__textarea"
+          className="repo-post-form__textarea"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="OSSについて思ったこと、見つけたリポジトリのURLを共有..."
-          rows={4}
+          placeholder="このリポジトリについて思ったことを共有..."
+          rows={3}
           maxLength={MAX_LENGTH}
           disabled={isSubmitting}
         />
-        <div className="post-form__footer">
-          <span className="post-form__counter">
+        <div className="repo-post-form__footer">
+          <span className="repo-post-form__counter">
             {text.length} / {MAX_LENGTH}
           </span>
           <button
             type="submit"
-            className="post-form__submit"
+            className="repo-post-form__submit"
             disabled={isSubmitting || !text.trim()}
           >
             {isSubmitting ? '投稿中...' : '投稿'}
@@ -71,10 +65,10 @@ function PostForm({ onPostCreated }) {
         </div>
       </div>
 
-      {error && <div className="post-form__error">{error}</div>}
+      {error && <div className="repo-post-form__error">{error}</div>}
     </form>
   );
 }
 
-export default PostForm;
+export default RepoPostForm;
 

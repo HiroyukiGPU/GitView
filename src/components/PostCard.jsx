@@ -59,11 +59,25 @@ function PostCard({ post }) {
     <article className="post-card">
       <div className="post-card__header">
         <div className="post-card__user">
-          <div className="post-card__avatar">
-            {post.userId ? post.userId.substring(0, 2).toUpperCase() : 'AN'}
-          </div>
+          {post.userPhotoURL ? (
+            <img
+              src={post.userPhotoURL}
+              alt={post.userName || 'ユーザー'}
+              className="post-card__avatar-img"
+            />
+          ) : (
+            <div className="post-card__avatar">
+              {post.userName
+                ? post.userName.substring(0, 2).toUpperCase()
+                : post.userId
+                ? post.userId.substring(0, 2).toUpperCase()
+                : 'AN'}
+            </div>
+          )}
           <div className="post-card__user-info">
-            <span className="post-card__username">匿名ユーザー</span>
+            <span className="post-card__username">
+              {post.userName || '匿名ユーザー'}
+            </span>
             <span className="post-card__timestamp">{formatDate(post.createdAt)}</span>
           </div>
         </div>

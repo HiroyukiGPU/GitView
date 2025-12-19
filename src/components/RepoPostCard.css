@@ -1,0 +1,359 @@
+.repo-post-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+}
+
+.repo-post-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.repo-post-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.repo-post-card__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.repo-post-card__avatar,
+.repo-post-card__avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.repo-post-card__avatar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.repo-post-card__avatar-img {
+  object-fit: cover;
+}
+
+.repo-post-card__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.repo-post-card__username {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.repo-post-card__timestamp {
+  font-size: 12px;
+  color: #666;
+}
+
+.repo-post-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.repo-post-card__action-btn {
+  padding: 4px 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.repo-post-card__action-btn:hover {
+  background: #f8f9fa;
+}
+
+.repo-post-card__action-btn--danger {
+  color: #c33;
+  border-color: #fcc;
+}
+
+.repo-post-card__action-btn--danger:hover {
+  background: #fee;
+}
+
+.repo-post-card__content {
+  margin-bottom: 12px;
+}
+
+.repo-post-card__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.repo-post-card__edit {
+  margin-bottom: 12px;
+}
+
+.repo-post-card__edit-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.repo-post-card__edit-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.repo-post-card__edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.repo-post-card__edit-cancel,
+.repo-post-card__edit-save {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.repo-post-card__edit-cancel {
+  background: #f8f9fa;
+  color: #666;
+}
+
+.repo-post-card__edit-cancel:hover {
+  background: #e9ecef;
+}
+
+.repo-post-card__edit-save {
+  background: #667eea;
+  color: white;
+}
+
+.repo-post-card__edit-save:hover {
+  background: #764ba2;
+}
+
+.repo-post-card__footer {
+  display: flex;
+  gap: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.repo-post-card__action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: none;
+  background: none;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.repo-post-card__action:hover:not(:disabled) {
+  background: #f8f9fa;
+  color: #667eea;
+}
+
+.repo-post-card__action.active {
+  color: #e91e63;
+}
+
+.repo-post-card__action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.repo-post-card__action-icon {
+  font-size: 16px;
+}
+
+.repo-post-card__action-count {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.repo-post-card__reply-form {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.repo-post-card__reply-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 60px;
+}
+
+.repo-post-card__reply-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.repo-post-card__reply-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.repo-post-card__reply-cancel,
+.repo-post-card__reply-submit {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.repo-post-card__reply-cancel {
+  background: #f8f9fa;
+  color: #666;
+}
+
+.repo-post-card__reply-submit {
+  background: #667eea;
+  color: white;
+}
+
+.repo-post-card__reply-submit:hover:not(:disabled) {
+  background: #764ba2;
+}
+
+.repo-post-card__reply-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.repo-post-card__replies {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.repo-post-card__reply {
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.repo-post-card__reply-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.repo-post-card__reply-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.repo-post-card__reply-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.repo-post-card__reply-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.repo-post-card__reply-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.repo-post-card__reply-time {
+  font-size: 11px;
+  color: #999;
+}
+
+.repo-post-card__error {
+  margin-top: 8px;
+  padding: 8px;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 6px;
+  color: #c33;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .repo-post-card {
+    padding: 12px;
+  }
+
+  .repo-post-card__avatar,
+  .repo-post-card__avatar-img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .repo-post-card__text {
+    font-size: 14px;
+  }
+
+  .repo-post-card__footer {
+    gap: 16px;
+  }
+}
+

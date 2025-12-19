@@ -2,40 +2,65 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+// 環境変数の検証
+const requiredEnvVars = {
+  VITE_FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
+  VITE_FIREBASE_AUTH_DOMAIN: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  VITE_FIREBASE_PROJECT_ID: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  VITE_FIREBASE_STORAGE_BUCKET: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  VITE_FIREBASE_MESSAGING_SENDER_ID: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  VITE_FIREBASE_APP_ID: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// 環境変数のチェック（開発時のみ）
-if (import.meta.env.DEV) {
-  const requiredEnvVars = [
-    'VITE_FIREBASE_API_KEY',
-    'VITE_FIREBASE_AUTH_DOMAIN',
-    'VITE_FIREBASE_PROJECT_ID',
-    'VITE_FIREBASE_STORAGE_BUCKET',
-    'VITE_FIREBASE_MESSAGING_SENDER_ID',
-    'VITE_FIREBASE_APP_ID',
-  ];
+// 環境変数のチェック
+const missingVars = Object.entries(requiredEnvVars)
+  .filter(([key, value]) => !value)
+  .map(([key]) => key);
 
-  const missingVars = requiredEnvVars.filter(
-    (varName) => !import.meta.env[varName]
-  );
+if (missingVars.length > 0) {
+  const errorMessage = `
+⚠️ Firebase環境変数が設定されていません: ${missingVars.join(', ')}
 
-  if (missingVars.length > 0) {
-    console.warn(
-      '⚠️ Firebase環境変数が設定されていません:',
-      missingVars.join(', ')
-    );
-    console.warn('.env.localファイルを作成して環境変数を設定してください。');
+ローカル開発の場合:
+  .env.localファイルを作成して環境変数を設定してください。
+
+Vercelデプロイの場合:
+  1. Vercelダッシュボード → プロジェクト → Settings → Environment Variables
+  2. 以下の環境変数を追加してください:
+     - VITE_FIREBASE_API_KEY
+     - VITE_FIREBASE_AUTH_DOMAIN
+     - VITE_FIREBASE_PROJECT_ID
+     - VITE_FIREBASE_STORAGE_BUCKET
+     - VITE_FIREBASE_MESSAGING_SENDER_ID
+     - VITE_FIREBASE_APP_ID
+  3. 環境変数を追加した後、再デプロイしてください。
+  `;
+  console.error(errorMessage);
+  
+  // 本番環境ではエラーをスロー
+  if (import.meta.env.PROD) {
+    throw new Error(`Firebase環境変数が設定されていません: ${missingVars.join(', ')}`);
   }
 }
 
-const app = initializeApp(firebaseConfig);
+const firebaseConfig = {
+  apiKey: requiredEnvVars.VITE_FIREBASE_API_KEY,
+  authDomain: requiredEnvVars.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: requiredEnvVars.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: requiredEnvVars.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: requiredEnvVars.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: requiredEnvVars.VITE_FIREBASE_APP_ID,
+};
+
+// Firebase初期化
+let app;
+try {
+  app = initializeApp(firebaseConfig);
+} catch (error) {
+  console.error('Firebase初期化エラー:', error);
+  throw error;
+}
+
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 

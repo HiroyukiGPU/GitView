@@ -1,12 +1,12 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // 投稿コレクション
+    // 投稿コレクション（グローバルフィード）
     match /posts/{postId} {
       // 読み取り: 誰でも可能
       allow read: if true;
       
-      // 作成: 認証不要（匿名投稿）
+      // 作成: 認証不要（匿名投稿も認証ユーザーも可能）
       allow create: if request.resource.data.keys().hasAll(['text', 'userId', 'createdAt'])
         && request.resource.data.text is string
         && request.resource.data.text.size() > 0
@@ -16,6 +16,65 @@ service cloud.firestore {
       
       // 更新・削除: MVPでは非対応
       allow update, delete: if false;
+    }
+
+    // リポジトリ投稿コレクション
+    match /repoPosts/{postId} {
+      // 読み取り: 誰でも可能
+      allow read: if true;
+      
+      // 作成: 認証不要
+      allow create: if request.resource.data.keys().hasAll(['text', 'repoOwner', 'repoName', 'repoFullName', 'userId', 'createdAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 500
+        && request.resource.data.userId is string
+        && request.resource.data.createdAt is timestamp;
+      
+      // 更新: 投稿者のみ（いいね、返信、編集）
+      allow update: if request.resource.data.userId == resource.data.userId
+        || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'likesCount', 'replies', 'repliesCount', 'text', 'updatedAt']));
+      
+      // 削除: 投稿者のみ
+      allow delete: if resource.data.userId == request.auth.uid;
+    }
+
+    // メッセージコレクション
+    match /messages/{messageId} {
+      // 読み取り: 送信者または受信者のみ
+      allow read: if request.auth != null
+        && (resource.data.senderId == request.auth.uid || resource.data.receiverId == request.auth.uid);
+      
+      // 作成: 認証ユーザーのみ
+      allow create: if request.auth != null
+        && request.resource.data.senderId == request.auth.uid
+        && request.resource.data.keys().hasAll(['senderId', 'receiverId', 'text', 'createdAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 500;
+      
+      // 更新: 受信者のみ（既読マークなど）
+      allow update: if request.auth != null
+        && resource.data.receiverId == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      
+      // 削除: 送信者のみ
+      allow delete: if request.auth != null
+        && resource.data.senderId == request.auth.uid;
+    }
+
+    // ユーザー情報コレクション
+    match /users/{userId} {
+      // 読み取り: 誰でも可能
+      allow read: if true;
+      
+      // 作成・更新: 認証ユーザー自身のみ
+      allow create, update: if request.auth != null
+        && request.auth.uid == userId;
+      
+      // 削除: 認証ユーザー自身のみ
+      allow delete: if request.auth != null
+        && request.auth.uid == userId;
     }
   }
 }

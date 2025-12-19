@@ -1,0 +1,100 @@
+.repo-post-form {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.repo-post-form__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.repo-post-form__textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s;
+}
+
+.repo-post-form__textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.repo-post-form__textarea:disabled {
+  background: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.repo-post-form__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.repo-post-form__counter {
+  font-size: 13px;
+  color: #666;
+}
+
+.repo-post-form__submit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.repo-post-form__submit:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.repo-post-form__submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.repo-post-form__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.repo-post-form__error {
+  margin-top: 12px;
+  padding: 10px;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 6px;
+  color: #c33;
+  font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  .repo-post-form {
+    padding: 12px;
+  }
+
+  .repo-post-form__textarea {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .repo-post-form__submit {
+    padding: 8px 20px;
+    font-size: 13px;
+  }
+}
+

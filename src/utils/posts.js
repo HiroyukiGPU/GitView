@@ -5,7 +5,7 @@ const POSTS_COLLECTION = 'posts';
 const MAX_TEXT_LENGTH = 500;
 
 // 投稿を追加
-export async function createPost(text, userId) {
+export async function createPost(text, userId, user = null) {
   if (!text || text.trim().length === 0) {
     throw new Error('投稿内容が空です');
   }
@@ -19,6 +19,13 @@ export async function createPost(text, userId) {
     userId,
     createdAt: new Date(),
     bookmarks: [],
+    // 認証ユーザーの情報を追加
+    ...(user && {
+      userName: user.displayName || user.email?.split('@')[0] || 'ユーザー',
+      userPhotoURL: user.photoURL || null,
+      userEmail: user.email || null,
+      isAuthenticated: true,
+    }),
   };
 
   try {

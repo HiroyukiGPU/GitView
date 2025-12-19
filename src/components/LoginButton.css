@@ -1,0 +1,139 @@
+.login-button {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-button__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-button__google,
+.login-button__github {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.login-button__google:hover {
+  background: #f8f9fa;
+  border-color: #4285F4;
+  color: #4285F4;
+}
+
+.login-button__github:hover {
+  background: #f8f9fa;
+  border-color: #24292e;
+  color: #24292e;
+}
+
+.login-button__google:disabled,
+.login-button__github:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-button__icon {
+  flex-shrink: 0;
+}
+
+.login-button__user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.login-button__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.login-button__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.login-button__logout {
+  padding: 8px 16px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.login-button__logout:hover {
+  background: #fee;
+  border-color: #fcc;
+  color: #c33;
+}
+
+.login-button__logout:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-button__error {
+  padding: 8px;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 6px;
+  color: #c33;
+  font-size: 12px;
+}
+
+.login-button__loading {
+  padding: 8px;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .login-button__google,
+  .login-button__github {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .login-button__user {
+    padding: 6px 10px;
+  }
+
+  .login-button__avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .login-button__name {
+    font-size: 13px;
+  }
+}
+

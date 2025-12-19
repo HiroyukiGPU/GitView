@@ -33,24 +33,36 @@ Vercelが自動的に以下を検出します：
 
 設定を確認し、そのまま「Deploy」をクリックしても問題ありません。
 
-### ステップ4: 環境変数の設定（重要）
+### ステップ4: 環境変数の設定（重要・必須）
+
+**⚠️ このステップをスキップすると `auth/invalid-api-key` エラーが発生します**
 
 デプロイ前に環境変数を設定します：
 
 1. プロジェクト設定画面で「Environment Variables」セクションを開く
-2. 以下の環境変数を追加：
+   - または、デプロイ後に Settings → Environment Variables から設定可能
 
-| 変数名 | 値 |
-|--------|-----|
-| `VITE_FIREBASE_API_KEY` | `AIzaSyB1HqV6l-4FKBmEfQO1bEhEryZcVWRTOxw` |
-| `VITE_FIREBASE_AUTH_DOMAIN` | `gitview-5377d.firebaseapp.com` |
-| `VITE_FIREBASE_PROJECT_ID` | `gitview-5377d` |
-| `VITE_FIREBASE_STORAGE_BUCKET` | `gitview-5377d.firebasestorage.app` |
-| `VITE_FIREBASE_MESSAGING_SENDER_ID` | `1082007243080` |
-| `VITE_FIREBASE_APP_ID` | `1:1082007243080:web:926ecbe5129dd944910b7d` |
+2. 以下の環境変数を**1つずつ**追加：
 
-3. 各環境（Production, Preview, Development）に適用するよう設定
-4. 「Save」をクリック
+| 変数名 | 値 | 適用環境 |
+|--------|-----|---------|
+| `VITE_FIREBASE_API_KEY` | `AIzaSyB1HqV6l-4FKBmEfQO1bEhEryZcVWRTOxw` | Production, Preview, Development |
+| `VITE_FIREBASE_AUTH_DOMAIN` | `gitview-5377d.firebaseapp.com` | Production, Preview, Development |
+| `VITE_FIREBASE_PROJECT_ID` | `gitview-5377d` | Production, Preview, Development |
+| `VITE_FIREBASE_STORAGE_BUCKET` | `gitview-5377d.firebasestorage.app` | Production, Preview, Development |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | `1082007243080` | Production, Preview, Development |
+| `VITE_FIREBASE_APP_ID` | `1:1082007243080:web:926ecbe5129dd944910b7d` | Production, Preview, Development |
+
+3. 各環境変数を追加する際に：
+   - 「Value」に値を入力
+   - 「Environment」で Production, Preview, Development のすべてにチェック
+   - 「Add」をクリック
+
+4. すべての環境変数を追加したら、「Save」をクリック
+
+5. **重要**: 環境変数を追加した後、**再デプロイが必要**です
+   - 既存のデプロイがある場合: 「Deployments」タブ → 最新のデプロイの「⋯」メニュー → 「Redeploy」
+   - または、新しいコミットをプッシュして自動デプロイをトリガー
 
 ### ステップ5: デプロイ実行
 
@@ -171,11 +183,40 @@ npm run build
 
 エラーが発生する場合は、ローカルで修正してから再デプロイ。
 
-### 環境変数が読み込まれない
+### 環境変数が読み込まれない / `auth/invalid-api-key` エラー
 
-- Vercelダッシュボードで環境変数が正しく設定されているか確認
-- 変数名が `VITE_` で始まっているか確認
-- 再デプロイを実行
+このエラーは、Vercelで環境変数が正しく設定されていない場合に発生します。
+
+**解決手順:**
+
+1. **Vercelダッシュボードで環境変数を確認**
+   - プロジェクト → Settings → Environment Variables
+   - 以下の6つの環境変数がすべて設定されているか確認：
+     - `VITE_FIREBASE_API_KEY`
+     - `VITE_FIREBASE_AUTH_DOMAIN`
+     - `VITE_FIREBASE_PROJECT_ID`
+     - `VITE_FIREBASE_STORAGE_BUCKET`
+     - `VITE_FIREBASE_MESSAGING_SENDER_ID`
+     - `VITE_FIREBASE_APP_ID`
+
+2. **環境変数の値が正しいか確認**
+   - 値に余分なスペースや改行が含まれていないか確認
+   - 値が完全にコピーされているか確認
+
+3. **適用環境を確認**
+   - 各環境変数が Production, Preview, Development のすべてに適用されているか確認
+
+4. **再デプロイを実行**
+   - 環境変数を追加/変更した後は、必ず再デプロイが必要です
+   - Deployments タブ → 最新のデプロイの「⋯」メニュー → 「Redeploy」
+
+5. **ビルドログを確認**
+   - Deployments タブ → ビルドログを開く
+   - 環境変数が正しく読み込まれているか確認
+
+**確認方法:**
+- ブラウザの開発者ツール（F12）→ Console タブでエラーメッセージを確認
+- エラーメッセージに「Firebase環境変数が設定されていません」と表示される場合は、環境変数が設定されていません
 
 ### Firestore接続エラー
 
