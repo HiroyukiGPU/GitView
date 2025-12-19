@@ -1,0 +1,104 @@
+.explore {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.explore__header {
+  margin-bottom: 24px;
+}
+
+.explore__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.explore__subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.explore__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.explore__filter {
+  padding: 8px 16px;
+  border: 1px solid #e9ecef;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.explore__filter:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.explore__filter.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  color: white;
+}
+
+.explore__error {
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  color: #c33;
+  font-size: 14px;
+}
+
+.explore__loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.explore__repos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.explore__empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .explore {
+    padding: 12px;
+  }
+
+  .explore__title {
+    font-size: 24px;
+  }
+
+  .explore__filters {
+    gap: 6px;
+  }
+
+  .explore__filter {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+

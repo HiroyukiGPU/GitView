@@ -1,0 +1,139 @@
+.repo-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.repo-card:hover {
+  background: #f1f3f5;
+  border-color: #dee2e6;
+}
+
+.repo-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.repo-card__owner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.repo-card__owner-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.repo-card__owner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.repo-card__owner-name {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.repo-card__repo-name {
+  font-size: 14px;
+  color: #1a1a1a;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.repo-card__stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.repo-card__star-icon {
+  color: #ffa500;
+  font-size: 14px;
+}
+
+.repo-card__star-count {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.repo-card__description {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.repo-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.repo-card__language {
+  font-size: 12px;
+  color: #666;
+  background: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.repo-card__link {
+  font-size: 13px;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.repo-card__link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .repo-card {
+    padding: 10px;
+  }
+
+  .repo-card__owner-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .repo-card__owner-name {
+    font-size: 11px;
+  }
+
+  .repo-card__repo-name {
+    font-size: 13px;
+  }
+
+  .repo-card__description {
+    font-size: 12px;
+  }
+
+  .repo-card__link {
+    font-size: 12px;
+  }
+}
+

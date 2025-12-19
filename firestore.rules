@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 投稿コレクション
+    match /posts/{postId} {
+      // 読み取り: 誰でも可能
+      allow read: if true;
+      
+      // 作成: 認証不要（匿名投稿）
+      allow create: if request.resource.data.keys().hasAll(['text', 'userId', 'createdAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 500
+        && request.resource.data.userId is string
+        && request.resource.data.createdAt is timestamp;
+      
+      // 更新・削除: MVPでは非対応
+      allow update, delete: if false;
+    }
+  }
+}
+
