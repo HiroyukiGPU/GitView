@@ -35,32 +35,36 @@ Vercelデプロイの場合:
      - VITE_FIREBASE_APP_ID
   3. 環境変数を追加した後、再デプロイしてください。
   `;
-  console.error(errorMessage);
-  
-  // 本番環境ではエラーをスロー
-  if (import.meta.env.PROD) {
-    throw new Error(`Firebase環境変数が設定されていません: ${missingVars.join(', ')}`);
-  }
+  console.warn(errorMessage);
 }
 
 const firebaseConfig = {
-  apiKey: requiredEnvVars.VITE_FIREBASE_API_KEY,
-  authDomain: requiredEnvVars.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: requiredEnvVars.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: requiredEnvVars.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: requiredEnvVars.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: requiredEnvVars.VITE_FIREBASE_APP_ID,
+  apiKey: requiredEnvVars.VITE_FIREBASE_API_KEY || '',
+  authDomain: requiredEnvVars.VITE_FIREBASE_AUTH_DOMAIN || '',
+  projectId: requiredEnvVars.VITE_FIREBASE_PROJECT_ID || '',
+  storageBucket: requiredEnvVars.VITE_FIREBASE_STORAGE_BUCKET || '',
+  messagingSenderId: requiredEnvVars.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
+  appId: requiredEnvVars.VITE_FIREBASE_APP_ID || '',
 };
 
-// Firebase初期化
+// Firebase初期化（環境変数が設定されていなくてもエラーをスローしない）
 let app;
+let db;
+let auth;
+
 try {
   app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  auth = getAuth(app);
 } catch (error) {
   console.error('Firebase初期化エラー:', error);
-  throw error;
+  console.error('環境変数が正しく設定されているか確認してください。');
+  // エラーをスローせず、nullを設定してアプリを起動できるようにする
+  // ただし、Firebase機能は使用できません
+  app = null;
+  db = null;
+  auth = null;
 }
 
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+export { db, auth };
 
